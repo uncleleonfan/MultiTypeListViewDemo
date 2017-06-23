@@ -51,6 +51,7 @@ public class NewsListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        //如果是普通类型
         if (getItemViewType(position) == TYPE_NORMAL) {
             NormalViewHolder viewHolder = null;
             if (convertView == null) {
@@ -66,7 +67,7 @@ public class NewsListAdapter extends BaseAdapter {
             viewHolder.mTitle.setText(newsBean.getTitle());
             viewHolder.mPublishTime.setText(newsBean.getPubdate());
             Glide.with(mContext).load(newsBean.getListimage()).into(viewHolder.mImageView);
-        } else {
+        } else {//如果是多图片类型
             MultiImagesViewHolder viewHolder = null;
             if (convertView == null) {
                 convertView = View.inflate(mContext, R.layout.view_multi_image_list_item, null);
@@ -96,12 +97,19 @@ public class NewsListAdapter extends BaseAdapter {
         return convertView;
     }
 
+
+    /**
+     * 返回对应位置item的类型
+     */
     @Override
     public int getItemViewType(int position) {
         String type = mList.get(position).getType();
         return Integer.parseInt(type);
     }
 
+    /**
+     * 返回Item的类型个数
+     */
     @Override
     public int getViewTypeCount() {
         return 2;
